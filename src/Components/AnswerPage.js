@@ -1,5 +1,8 @@
-export default function AnswerPage() {
+export default function AnswerPage(props) {
     return (
-        <h1>Answer Page</h1>
+        <div>
+            <h1>Answer Page</h1>
+            <button className="btn" onClick={props.handleClick}>Start Again</button>
+        </div>
     )
 }
