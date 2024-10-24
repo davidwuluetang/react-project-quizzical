@@ -1,38 +1,41 @@
 .App {
+  height: 100%;
+  width: 100%;
+  align-content: center;
   text-align: center;
+  background-image: url("../public/blob5.png"), url("../public/blobs.png");
+  background-repeat: no-repeat, no-repeat;
+  position: fixed;
+  background-position: bottom left, top right;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+#Home-Page-Title {
+  font-family: "Karla", serif;
+  font-size: 2.5rem;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+#Home-Page-Description {
+  font-family: "Inter", serif;
+  font-size: 1.5rem;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+#Home-Page-Btn {
+  font-family: "Inter", serif;
+  font-size: 1.2em;
+  width: 8em;
+  height: 2.5em;
+  background-color: #4D5B9E;
+  border-radius: 12px;
+  color: #F5F7FB;
+  border: 0;
+  box-shadow: 0 0 0.2em 0 gray;
 }
 
-.App-link {
-  color: #61dafb;
+#Home-Page-Btn:hover {
+  background-color: #5e71cb;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+#Home-Page-Btn:active {
+  box-shadow:
+    inset -2px -2px 3px rgba(255, 255, 255, 0.6);
 }
