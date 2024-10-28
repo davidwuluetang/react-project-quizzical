@@ -49,4 +49,39 @@
   font-family: "Karla", serif;
   font-size: 2em;
   color: #293264;
+  margin: 20px;
+}
+
+/* Style the radio button container */
+.radio-input-container {
+  display: flex;
+  flex-direction: row;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+/* Hide the default radio button */
+.radio-input-container input[type="radio"] {
+  display: none; 
+}
+
+/* Style the label as a button */
+.radio-input-container label {
+  display: block;
+  padding: 10px 20px;
+  background-color: #eee;
+  border-radius: 5px;
+  text-align: center;
+  transition: background-color 0.3s ease; 
+}
+
+/* Style the button on hover */
+.radio-input-container label:hover {
+  background-color: #ddd;
+}
+
+/* Style the button when checked */
+.radio-input-container input[type="radio"]:checked + label {
+  background-color: #007bff; /* Blue color for checked */
+  color: white;
 }

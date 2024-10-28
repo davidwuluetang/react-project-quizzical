@@ -2,13 +2,26 @@ import './App.css';
 import MainPage from './Components/MainPage';
 import QuestionPage from './Components/QuestionPage';
 import AnswerPage from './Components/AnswerPage';
-import { useState } from 'react';
-import {decodeEntity} from 'html-entities';
+import React from 'react';
+import {decode} from 'html-entities';
 
 function App() {
-  const [page, setPage] = useState("main-page")
-  const [results, setResults] = useState([])
-  
+  const [page, setPage] = React.useState("main-page")
+  const [results, setResults] = React.useState([])
+
+  function shuffle(array) {
+    var m = array.length, t, i;
+
+    while (m) {
+        i = Math.floor(Math.random() * m--);
+
+        t = array[m];
+        array[m] = array[i];
+        array[i] = t;
+    }
+
+    return array;
+  }
   
   function startQuiz() {
 
@@ -25,13 +38,15 @@ function App() {
           const dataSet = []
 
           json.results.forEach(res => {
-            let temp = {
-              question: decodeEntity(res.question),
+            let answersArr = [...res.incorrect_answers, res.correct_answer]
+
+            let tempSet = {
+              question: decode(res.question, {level: 'html5'}),
               correct_answer: res.correct_answer,
-              incorrect_answers: res.incorrect_answers
+              shuffled_answers: shuffle(answersArr)
             }
 
-            dataSet.push(temp)
+            dataSet.push(tempSet)
           })
           return dataSet
         })
