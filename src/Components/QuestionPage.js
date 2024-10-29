@@ -2,7 +2,6 @@ import Question from "./Question"
 
 
 export default function QuestionPage(props) {
-    console.log(props.dataSet)
 
     const questionSet = props.dataSet.map((data, index) => {
 

@@ -37,12 +37,15 @@ function App() {
         setResults(() => {
           const dataSet = []
 
-          json.results.forEach(res => {
-            let answersArr = [...res.incorrect_answers, res.correct_answer]
+          json.results.forEach((res, index) => {
+            let answersArr = []
+            res.incorrect_answers.forEach(ans => answersArr.push(decode(ans, {level: 'html5'})))
+            answersArr.push(decode(res.correct_answer, {level: 'html5'}))
 
             let tempSet = {
+              name: `question_${index + 1}`,
               question: decode(res.question, {level: 'html5'}),
-              correct_answer: res.correct_answer,
+              correct_answer: decode(res.correct_answer, {level: 'html5'}),
               shuffled_answers: shuffle(answersArr)
             }
 
