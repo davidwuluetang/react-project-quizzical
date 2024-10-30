@@ -35,6 +35,7 @@
     color: #F5F7FB;
     border: 0;
     box-shadow: 0 0 0.2em 0 gray;
+    cursor: pointer;
 }
 
 .btn:hover {
@@ -82,7 +83,7 @@
     cursor: pointer;
 }
 
-/* Style the button when checked */
+/* Style the label when checked */
 .radio-input-container label:has(> input[type="radio"]:checked) {
     background-color: #D6DBF5;
     border: none;
@@ -91,4 +92,19 @@
 hr {
     color: #DBDEF0;
     width: 90%;
+}
+
+.bottom-container {
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+    justify-content: center;
+    align-items: center;
+    height: 15vh;
+}
+
+.bottom-text {
+    font-family: "Karla", serif;
+    font-size: 2em;
+    color: #293264;
 }
