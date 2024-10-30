@@ -22,48 +22,47 @@ export default function QuestionPage() {
         return array;
     }
     
-
+    async function fetchQuestions() {
+        try {
+          const res = await fetch("https://opentdb.com/api.php?amount=5&category=18&difficulty=easy&type=multiple")
+  
+          if (!res.ok)
+            throw new Error(`Response status: ${res.status}`)
+  
+          const json = await res.json();
+  
+          setFetchResult(() => {
+            const resultSet = []
+  
+            json.results.forEach((res, index) => {
+              let answersArr = []
+              res.incorrect_answers.forEach(ans => answersArr.push(decode(ans, {level: 'html5'})))
+              answersArr.push(decode(res.correct_answer, {level: 'html5'}))
+  
+              let tempSet = {
+                question_id: `question_${index + 1}`,
+                question: decode(res.question, {level: 'html5'}),
+                correct_answer: decode(res.correct_answer, {level: 'html5'}),
+                shuffled_answers: shuffle(answersArr)
+              }
+  
+              resultSet.push(tempSet)
+            })
+            return resultSet
+          })
+        } catch (error) {
+          console.error(error.message);
+        }
+    }
 
     React.useEffect(() => {
-        async function fetchQuestions() {
-            try {
-              const res = await fetch("https://opentdb.com/api.php?amount=5&category=18&difficulty=easy&type=multiple")
-      
-              if (!res.ok)
-                throw new Error(`Response status: ${res.status}`)
-      
-              const json = await res.json();
-      
-              setFetchResult(() => {
-                const resultSet = []
-      
-                json.results.forEach((res, index) => {
-                  let answersArr = []
-                  res.incorrect_answers.forEach(ans => answersArr.push(decode(ans, {level: 'html5'})))
-                  answersArr.push(decode(res.correct_answer, {level: 'html5'}))
-      
-                  let tempSet = {
-                    question_id: `question_${index + 1}`,
-                    question: decode(res.question, {level: 'html5'}),
-                    correct_answer: decode(res.correct_answer, {level: 'html5'}),
-                    shuffled_answers: shuffle(answersArr)
-                  }
-      
-                  resultSet.push(tempSet)
-                })
-                return resultSet
-              })
-            } catch (error) {
-              console.error(error.message);
-            }
-        }
         fetchQuestions()
 
-        // setFormData({
-        //         score: 0,
-        //         checkAnswers: false,
-        //         playAgain: false
-        // })
+        setFormData({
+                score: 0,
+                checkAnswers: false,
+                playAgain: false
+        })
 
     }, [])
 
