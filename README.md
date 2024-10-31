@@ -1,3 +1,13 @@
+# Project Update Log
+
+**Oct 31, 2024 Ver.1**
+- Page changing by conditional rendering
+- Deployed on Vercel
+
+# Project Description
+
+This is an [online quiz website](https://react-project-quizzical.vercel.app/) created by me as practice using React. This website will pull 5 random computer science question from [Open Trivia Database API](https://opentdb.com/api_config.php) for user to answer. The project is introduced by Scrimba React course. Project guidelines can be found on this [link](https://v2.scrimba.com/learn-react-c0e/~05i).
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
