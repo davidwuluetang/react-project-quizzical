@@ -3,9 +3,13 @@ import React from 'react';
 import {decode} from 'html-entities';
 
 export default function QuestionPage() {
+    const emptyAppState = {
+        score: 0,
+        checkAnswers: false
+    }
 
     const [userInputs, setUserInputs] = React.useState({})
-    const [formData, setFormData] = React.useState({})
+    const [appState, setAppState] = React.useState(emptyAppState)
     const [fetchResult, setFetchResult] = React.useState([])
 
     function shuffle(array) {
@@ -55,16 +59,7 @@ export default function QuestionPage() {
         }
     }
 
-    React.useEffect(() => {
-        fetchQuestions()
-
-        setFormData({
-                score: 0,
-                checkAnswers: false,
-                playAgain: false
-        })
-
-    }, [])
+    React.useEffect(() => {fetchQuestions()}, [])
 
     function handleSelect(event) {
         const {value, name} = event.target
@@ -82,44 +77,56 @@ export default function QuestionPage() {
                 question_set={question_set}
                 handleSelect={handleSelect}
                 userInput={userInputs[question_set.question_id]}
+                checkAnswer={appState.checkAnswers}
             />)
     })
 
+    const allAnswersSelected = Object.keys(userInputs).length === fetchResult.length
+    const check_answer_btn_style = {
+        backgroundColor: allAnswersSelected ? "#4D5B9E" : "#808080de",
+        cursor: allAnswersSelected ? "pointer" : "not-allowed"
+    }
+    
     function checkAnswers() {
-        if(userInputs.length === fetchResult.length) {
-            setFormData(prevData => {
-                return {
-                    ...prevData,
-                    checkAnswers: true
+        if(allAnswersSelected) {
+            let total_score = 0
+            fetchResult.forEach(res => {
+                if(userInputs[res.question_id] === res.correct_answer)
+                    total_score++
+            })
+
+            setAppState(prevData => {
+                return {...prevData,
+                    score: total_score,
+                    checkAnswers: true,
                 }
             })
         }
     }
 
-    const check_answer_btn_style = {}
-
-    if (Object.keys(userInputs).length !== fetchResult.length) {
-        check_answer_btn_style.backgroundColor = "#808080de"
-        check_answer_btn_style.cursor = "not-allowed"
+    function playAgain() {
+        setUserInputs({})
+        setAppState(emptyAppState)
+        fetchQuestions()
     }
 
-
     return (
-        <div className="question-page">
+        <div className="main-content">
             {questionSet}
             
-            {formData.checkAnswers &&
+            {appState.checkAnswers &&
                 <div className="bottom-container">
-                    <p className="bottom-text">You scored {formData.score}/{fetchResult.length} correct answers</p>
-                    <button className="btn" >Play Again</button>
+                    <p className="bottom-text">You scored {appState.score}/{fetchResult.length} correct answers</p>
+                    <button className="btn" onClick={playAgain}>Play Again</button>
                 </div>
             }
-            {!formData.checkAnswers &&
+            {!appState.checkAnswers &&
                 <div className="bottom-container">
                     <button 
                         className="btn"
                         onClick={checkAnswers}
                         style={check_answer_btn_style}
+                        disabled={!allAnswersSelected}
                     >Check Answers</button>
                 </div>
             }

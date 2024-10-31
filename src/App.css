@@ -1,16 +1,28 @@
-.App {
-    padding: 50px 0px;
+html, body {
+    height: 100%;
+    width: 100%;
+}
+
+#root {
     height: 100%;
     width: 100%;
     align-content: center;
     text-align: center;
-    background-image: url("../public/blob5.png"), url("../public/blobs.png");
-    background-repeat: no-repeat, no-repeat;
-    position: absolute;
-    background-position: bottom left, top right;
 }
 
-.question-page {
+.bg-img {
+    background-image: url("../public/blob5.png"), url("../public/blobs.png");
+    background-repeat: no-repeat, no-repeat;
+    background-position: bottom left, top right;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: -1;
+    position: fixed;
+}
+
+.main-content {
     padding-left: 150px;
     padding-right: 150px;
 }
@@ -38,11 +50,11 @@
     cursor: pointer;
 }
 
-.btn:hover {
+.btn:hover:enabled {
     background-color: #5e71cb;
 }
 
-.btn:active {
+.btn:active:enabled {
     box-shadow: inset -2px -2px 3px rgba(255, 255, 255, 0.6);
 }
 

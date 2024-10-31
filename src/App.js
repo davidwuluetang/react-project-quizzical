@@ -14,9 +14,10 @@ function App() {
     <div className="App">
       {
         (page === "main-page" && <MainPage startQuiz={startQuiz}/>)
-            ||
+        ||
         (page === "questions-page" && <QuestionPage/>)
       }
+      <div className='bg-img'></div>
     </div>
   );
 }
