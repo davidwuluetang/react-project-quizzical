@@ -1,11 +1,13 @@
 import Question from "./Question"
 import React from 'react';
 import {decode} from 'html-entities';
+import ConfettiEffect from "./Confetti";
 
-export default function QuestionPage() {
+export default function QuestionPage(props) {
     const emptyAppState = {
         score: 0,
-        checkAnswers: false
+        checkAnswers: false,
+        fullScore: false
     }
 
     const [userInputs, setUserInputs] = React.useState({})
@@ -78,6 +80,7 @@ export default function QuestionPage() {
                 handleSelect={handleSelect}
                 userInput={userInputs[question_set.question_id]}
                 checkAnswer={appState.checkAnswers}
+                darkMode={props.darkMode}
             />)
     })
 
@@ -99,6 +102,7 @@ export default function QuestionPage() {
                 return {...prevData,
                     score: total_score,
                     checkAnswers: true,
+                    fullScore: total_score === fetchResult.length ? true : false
                 }
             })
         }
@@ -111,13 +115,14 @@ export default function QuestionPage() {
     }
 
     return (
-        <div className="main-content">
+        <div className={`main-content question-page ${props.darkMode ? "dark" : ""}`}>
             {questionSet}
             
             {appState.checkAnswers &&
                 <div className="bottom-container">
                     <p className="bottom-text">You scored {appState.score}/{fetchResult.length} correct answers</p>
                     <button className="btn" onClick={playAgain}>Play Again</button>
+                    {appState.fullScore && <ConfettiEffect numOfQues={fetchResult.length} />}
                 </div>
             }
             {!appState.checkAnswers &&

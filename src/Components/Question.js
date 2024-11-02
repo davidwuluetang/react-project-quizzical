@@ -1,6 +1,9 @@
-export default function Question({question_set, handleSelect, userInput, checkAnswer}) {
+export default function Question({question_set, handleSelect, userInput, checkAnswer, darkMode}) {
     const inputElements = question_set.shuffled_answers.map((answer, index) => {
-        let style = {}
+        let style = {
+            color: darkMode ? "#F5F7FB" : "",
+            border: darkMode ? "#F5F7FB solid 1.5px" : ""
+        }
     
         if(checkAnswer) {
             // Style for inputs that neither correct nor incorrect
@@ -40,8 +43,8 @@ export default function Question({question_set, handleSelect, userInput, checkAn
     })
 
     return (
-        <div>
-            <h3 className="question">{question_set.question}</h3>
+        <div className={`question ${darkMode ? "dark" : ""}`}>
+            <h3 className="question-title">{question_set.question}</h3>
             <div className='radio-input-container'>{inputElements}</div>
             <hr></hr>
         </div>

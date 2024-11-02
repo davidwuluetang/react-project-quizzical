@@ -1,5 +1,9 @@
 # Project Update Log
 
+**Nov 1, 2024 Ver.1.1**
+- Added confetti effect when user get full scores
+- Added dark mode
+
 **Oct 31, 2024 Ver.1**
 - Page changing by conditional rendering
 - Deployed on Vercel

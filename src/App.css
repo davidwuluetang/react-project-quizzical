@@ -6,8 +6,97 @@ html, body {
 #root {
     height: 100%;
     width: 100%;
-    align-content: center;
+}
+
+.App {
+    height: 100%;
+    width: 100%;
     text-align: center;
+}
+
+.toggler {
+    position: fixed;
+    top: 10px;
+    padding-left: 15px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    z-index: 1;
+}
+
+.toggler label {
+    position: relative;
+    display: inline-block;
+    width: 50px;
+    height: 26px;
+  }
+
+.toggler input { 
+opacity: 0;
+width: 0;
+height: 0;
+}
+
+.slider {
+position: absolute;
+cursor: pointer;
+top: 0;
+left: 0;
+right: 0;
+bottom: 0;
+background-color: #2B283A;
+-webkit-transition: .4s;
+transition: .4s;
+}
+
+.slider:before {
+position: absolute;
+content: "";
+height: 20px;
+width: 21px;
+left: 1px;
+bottom: 3px;
+background-color: white;
+-webkit-transition: .4s;
+transition: .4s;
+}
+
+input:checked + .slider {
+background-color: #918E9B;
+}
+
+input:focus + .slider {
+box-shadow: 0 0 1px #918E9B;
+}
+
+input:checked + .slider:before {
+-webkit-transform: translateX(26px);
+-ms-transform: translateX(26px);
+transform: translateX(26px);
+}
+
+.slider.round {
+border-radius: 34px;
+}
+
+.slider.round:before {
+border-radius: 50%;
+}
+
+.toggler--light {
+    color: #2B283A;
+}
+
+.dark .toggler--light {
+    color: #918E9B;
+}
+
+.toggler--dark {
+    color: #aaaaaa;
+}
+
+.dark .toggler-dark {
+    color: #FFFFFF;
 }
 
 .bg-img {
@@ -23,8 +112,9 @@ html, body {
 }
 
 .main-content {
-    padding-left: 150px;
-    padding-right: 150px;
+    height: 90%;
+    width: 100%;
+    align-content: center;
 }
 
 #Home-Page-Title {
@@ -58,7 +148,16 @@ html, body {
     box-shadow: inset -2px -2px 3px rgba(255, 255, 255, 0.6);
 }
 
+.question-page{
+    margin-top: 100px;
+}
+
 .question {
+    margin: 0px 150px;
+    padding: 0px 20px;
+}
+
+.question-title {
     font-family: "Karla", serif;
     font-size: 2em;
     color: #293264;
@@ -104,6 +203,7 @@ html, body {
 hr {
     color: #DBDEF0;
     width: 90%;
+    margin: 50px;
 }
 
 .bottom-container {
@@ -119,4 +219,32 @@ hr {
     font-family: "Karla", serif;
     font-size: 2em;
     color: #293264;
+}
+
+.main-content.dark {
+    color: #F5F7FB;
+}
+
+.bg-img.dark {
+    background-color: #27374D;
+}
+
+.main-content.dark button {
+    border: solid 1.5px;
+}
+
+.question.dark .question-title {
+    color: #F5F7FB;
+}
+
+.dark .bottom-text {
+    color: #F5F7FB;
+}
+
+.dark .radio-input-container label:hover {
+    background-color: #99a5de;
+}
+
+.dark .radio-input-container label:has(> input[type="radio"]:checked) {
+    background-color: #99a5de;
 }
