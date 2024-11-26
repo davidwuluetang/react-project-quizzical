@@ -4,7 +4,7 @@
 - Modified app to use React Router for pages render instead of state.
 - Added Layout and Header components.
 
-**Nov 1, 2024 Ver.1.1**
+**Nov 2, 2024 Ver.1.1**
 - Added confetti effect when user get full scores
 - Added dark mode
 
