@@ -1,9 +1,12 @@
-import Question from "./Question"
 import React from 'react';
+import { useOutletContext } from "react-router-dom"
 import {decode} from 'html-entities';
-import ConfettiEffect from "./Confetti";
+import Question from "../Components/Question"
+import ConfettiEffect from "../Components/Confetti";
 
 export default function QuestionPage(props) {
+    const {darkMode} = useOutletContext()
+
     const emptyAppState = {
         score: 0,
         checkAnswers: false,
@@ -80,7 +83,7 @@ export default function QuestionPage(props) {
                 handleSelect={handleSelect}
                 userInput={userInputs[question_set.question_id]}
                 checkAnswer={appState.checkAnswers}
-                darkMode={props.darkMode}
+                darkMode={darkMode}
             />)
     })
 
@@ -115,7 +118,7 @@ export default function QuestionPage(props) {
     }
 
     return (
-        <div className={`main-content question-page ${props.darkMode ? "dark" : ""}`}>
+        <div className={`main-content question-page ${darkMode ? "dark" : ""}`}>
             {questionSet}
             
             {appState.checkAnswers &&

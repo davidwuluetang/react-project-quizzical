@@ -1,5 +1,9 @@
 # Project Update Log
 
+**Nov 26, 2024 Ver.1.2**
+- Modified app to use React Router for pages render instead of state.
+- Added Layout and Header components.
+
 **Nov 1, 2024 Ver.1.1**
 - Added confetti effect when user get full scores
 - Added dark mode

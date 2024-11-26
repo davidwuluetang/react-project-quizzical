@@ -8,10 +8,20 @@ html, body {
     width: 100%;
 }
 
-.App {
+.site-wrapper {
     height: 100%;
     width: 100%;
     text-align: center;
+}
+
+nav {
+    height: 6%;
+}
+
+main {
+    height: 94%;
+    width: 100%;
+    align-content: center;
 }
 
 .toggler {
@@ -109,12 +119,6 @@ border-radius: 50%;
     right: 0;
     z-index: -1;
     position: fixed;
-}
-
-.main-content {
-    height: 90%;
-    width: 100%;
-    align-content: center;
 }
 
 #Home-Page-Title {

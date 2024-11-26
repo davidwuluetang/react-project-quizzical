@@ -1,38 +1,26 @@
 import './App.css';
-import MainPage from './Components/MainPage';
-import QuestionPage from './Components/QuestionPage';
 import React from 'react';
+import {
+  RouterProvider,
+  createBrowserRouter,
+  createRoutesFromElements,
+  Route,
+} from "react-router-dom"
+import StartPage from './Pages/StartPage';
+import QuestionPage from './Pages/QuestionPage';
+import Layout from './Components/Layout';
+
+const router = createBrowserRouter(createRoutesFromElements(
+  <Route path="/" element={<Layout />}>
+    <Route index element={<StartPage />}/>
+    <Route path="question" element={<QuestionPage />}/>
+  </Route>
+))
 
 function App() {
-  const [page, setPage] = React.useState("main-page")
-  const [darkMode, setDarkMode] = React.useState(false)
-
-  function startQuiz() {
-    setPage("questions-page")
-  }
-
-  function toggleDarkMode() {
-    setDarkMode(prevMode => !prevMode)
-  }
-
   return (
-    <div className="App">
-      <div className={`toggler ${darkMode ? "dark" : ""}`}>
-          <span className="toggler--light">Light</span>
-          <label>
-          <input type="checkbox" checked={darkMode} onChange={toggleDarkMode} />
-          <span className="slider round"></span>
-          </label>
-          <span className="toggler--dark">Dark</span>
-      </div>
-      {
-        (page === "main-page" && <MainPage startQuiz={startQuiz} darkMode={darkMode} />)
-        ||
-        (page === "questions-page" && <QuestionPage darkMode={darkMode} />)
-      }
-      <div className={`bg-img ${darkMode ? "dark" : ""}`}></div>
-    </div>
-  );
+    <RouterProvider router={router} />
+  )
 }
 
 export default App;
