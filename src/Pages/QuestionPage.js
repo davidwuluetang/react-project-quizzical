@@ -1,10 +1,32 @@
 import React from 'react';
-import { useOutletContext } from "react-router-dom"
-import {decode} from 'html-entities';
+import {
+    useOutletContext,
+    useLoaderData,
+    useRevalidator
+} from "react-router-dom"
 import Question from "../Components/Question"
 import ConfettiEffect from "../Components/Confetti";
+import { fetchQuestions } from '../api';
 
-export default function QuestionPage(props) {
+export async function loader(params) {
+    try {
+        return await fetchQuestions()
+    } catch(err) {
+        if(err.status === 429) {
+            throw {
+                status: err.status,
+                statusText: "Too many requests, please wait for a couple seconds and refresh your page."
+            }
+        } else {
+            throw {
+                status: err.status,
+                statusText: "There is a unknown error."
+            }
+        }
+    }
+}
+
+export default function QuestionPage() {
     const {darkMode} = useOutletContext()
 
     const emptyAppState = {
@@ -12,59 +34,10 @@ export default function QuestionPage(props) {
         checkAnswers: false,
         fullScore: false
     }
-
+    const questions = useLoaderData()
     const [userInputs, setUserInputs] = React.useState({})
     const [appState, setAppState] = React.useState(emptyAppState)
-    const [fetchResult, setFetchResult] = React.useState([])
-
-    function shuffle(array) {
-        var m = array.length, t, i;
-    
-        while (m) {
-            i = Math.floor(Math.random() * m--);
-    
-            t = array[m];
-            array[m] = array[i];
-            array[i] = t;
-        }
-    
-        return array;
-    }
-    
-    async function fetchQuestions() {
-        try {
-          const res = await fetch("https://opentdb.com/api.php?amount=5&category=18&difficulty=easy&type=multiple")
-  
-          if (!res.ok)
-            throw new Error(`Response status: ${res.status}`)
-  
-          const json = await res.json();
-  
-          setFetchResult(() => {
-            const resultSet = []
-  
-            json.results.forEach((res, index) => {
-              let answersArr = []
-              res.incorrect_answers.forEach(ans => answersArr.push(decode(ans, {level: 'html5'})))
-              answersArr.push(decode(res.correct_answer, {level: 'html5'}))
-  
-              let tempSet = {
-                question_id: `question_${index + 1}`,
-                question: decode(res.question, {level: 'html5'}),
-                correct_answer: decode(res.correct_answer, {level: 'html5'}),
-                shuffled_answers: shuffle(answersArr)
-              }
-  
-              resultSet.push(tempSet)
-            })
-            return resultSet
-          })
-        } catch (error) {
-          console.error(error.message);
-        }
-    }
-
-    React.useEffect(() => {fetchQuestions()}, [])
+    const revalidator = useRevalidator()
 
     function handleSelect(event) {
         const {value, name} = event.target
@@ -76,7 +49,7 @@ export default function QuestionPage(props) {
         })
     }
 
-    const questionSet = fetchResult.map((question_set, index) => {
+    const questionSet = questions.map((question_set, index) => {
         return (<Question
                 key={index}
                 question_set={question_set}
@@ -87,7 +60,7 @@ export default function QuestionPage(props) {
             />)
     })
 
-    const allAnswersSelected = Object.keys(userInputs).length === fetchResult.length
+    const allAnswersSelected = Object.keys(userInputs).length === questions.length
     const check_answer_btn_style = {
         backgroundColor: allAnswersSelected ? "#4D5B9E" : "#808080de",
         cursor: allAnswersSelected ? "pointer" : "not-allowed"
@@ -96,7 +69,7 @@ export default function QuestionPage(props) {
     function checkAnswers() {
         if(allAnswersSelected) {
             let total_score = 0
-            fetchResult.forEach(res => {
+            questions.forEach(res => {
                 if(userInputs[res.question_id] === res.correct_answer)
                     total_score++
             })
@@ -105,7 +78,7 @@ export default function QuestionPage(props) {
                 return {...prevData,
                     score: total_score,
                     checkAnswers: true,
-                    fullScore: total_score === fetchResult.length ? true : false
+                    fullScore: total_score === questions.length ? true : false
                 }
             })
         }
@@ -114,7 +87,7 @@ export default function QuestionPage(props) {
     function playAgain() {
         setUserInputs({})
         setAppState(emptyAppState)
-        fetchQuestions()
+        revalidator.revalidate()
     }
 
     return (
@@ -123,9 +96,9 @@ export default function QuestionPage(props) {
             
             {appState.checkAnswers &&
                 <div className="bottom-container">
-                    <p className="bottom-text">You scored {appState.score}/{fetchResult.length} correct answers</p>
+                    <p className="bottom-text">You scored {appState.score}/{questions.length} correct answers</p>
                     <button className="btn" onClick={playAgain}>Play Again</button>
-                    {appState.fullScore && <ConfettiEffect numOfQues={fetchResult.length} />}
+                    {appState.fullScore && <ConfettiEffect numOfQues={questions.length} />}
                 </div>
             }
             {!appState.checkAnswers &&

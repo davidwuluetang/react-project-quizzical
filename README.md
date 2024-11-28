@@ -1,5 +1,9 @@
 # Project Update Log
 
+**Nov 26, 2024 Ver.1.3**
+- Changed API fetch method by using loader instead of useEffect hook
+- Added error handling
+
 **Nov 26, 2024 Ver.1.2**
 - Modified app to use React Router for pages render instead of state.
 - Added Layout and Header components.
