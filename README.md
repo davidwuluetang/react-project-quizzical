@@ -1,6 +1,6 @@
 # Project Update Log
 
-**Nov 26, 2024 Ver.1.3**
+**Nov 28, 2024 Ver.1.3**
 - Changed API fetch method by using loader instead of useEffect hook
 - Added error handling
 
