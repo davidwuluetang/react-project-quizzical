@@ -7,14 +7,20 @@ import {
   Route,
 } from "react-router-dom"
 import StartPage from './Pages/StartPage';
+import { action as startPageAction } from './Pages/StartPage';
 import QuestionPage from './Pages/QuestionPage';
+import {loader as questionLoader} from './Pages/QuestionPage'
 import Layout from './Components/Layout';
 import Error from './Components/Error';
-import {loader as questionLoader} from './Pages/QuestionPage'
 
 const router = createBrowserRouter(createRoutesFromElements(
   <Route path="/" element={<Layout />}>
-    <Route index element={<StartPage />}/>
+    <Route 
+      index 
+      element={<StartPage />}
+      errorElement={<Error />}
+      action={startPageAction}
+    />
     <Route
       path="question"
       element={<QuestionPage />}

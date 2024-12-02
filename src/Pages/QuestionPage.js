@@ -8,21 +8,16 @@ import Question from "../Components/Question"
 import ConfettiEffect from "../Components/Confetti";
 import { fetchQuestions } from '../api';
 
-export async function loader(params) {
+export async function loader({request}) {
+    const queryString = new URL(request.url).searchParams.toString()
     try {
-        return await fetchQuestions()
+        return await fetchQuestions(queryString)
     } catch(err) {
-        if(err.status === 429) {
+        if(err.status === 429)
             throw {
-                status: err.status,
-                statusText: "Too many requests, please wait for a couple seconds and refresh your page."
+                name: err.status,
+                message: "Too many requests, please wait for a couple seconds and refresh your page."
             }
-        } else {
-            throw {
-                status: err.status,
-                statusText: "There is a unknown error."
-            }
-        }
     }
 }
 

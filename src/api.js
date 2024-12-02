@@ -1,9 +1,10 @@
 import {decode} from 'html-entities';
 import { shuffle } from './utils';
 
-export function fetchQuestions(params) {
+export function fetchQuestions(queryString) {
+  
     return new Promise((resolve, reject) => {
-            fetch("https://opentdb.com/api.php?amount=5&category=18&difficulty=easy&type=multiple")
+            fetch(`https://opentdb.com/api.php?${queryString}&type=multiple`)
             .then(res => {
                 if(!res.ok)
                     reject(res)

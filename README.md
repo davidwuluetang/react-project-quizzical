@@ -1,5 +1,8 @@
 # Project Update Log
 
+**Dec 2, 2024 Ver.1.4**
+- Added form on HomePage for question amount, category and difficulty selection.
+
 **Nov 28, 2024 Ver.1.3**
 - Changed API fetch method by using loader instead of useEffect hook
 - Added error handling

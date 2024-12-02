@@ -252,3 +252,21 @@ hr {
 .dark .radio-input-container label:has(> input[type="radio"]:checked) {
     background-color: #99a5de;
 }
+
+.question-form {
+    margin-top: 50px;
+    font-family: "Inter", serif;
+    font-size: 1.2rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-weight: bold;
+}
+
+.question-form input,select{
+    margin-top: 10px;
+    width: 50%;
+    font-family: "Inter", serif;
+    font-size: 1.2rem;
+    text-align: center;
+}
