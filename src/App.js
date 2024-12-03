@@ -5,7 +5,7 @@ import {
   createBrowserRouter,
   createRoutesFromElements,
   Route,
-} from "react-router-dom"
+} from "react-router"
 import StartPage from './Pages/StartPage';
 import { action as startPageAction } from './Pages/StartPage';
 import QuestionPage from './Pages/QuestionPage';

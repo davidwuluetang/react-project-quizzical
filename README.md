@@ -1,5 +1,8 @@
 # Project Update Log
 
+**Dec 3, 2024 Ver.1.4.1**
+- Added HomePage button on Question Page and minor CSS change.
+
 **Dec 2, 2024 Ver.1.4**
 - Added form on HomePage for question amount, category and difficulty selection.
 

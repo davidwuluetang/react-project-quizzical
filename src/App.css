@@ -134,7 +134,7 @@ border-radius: 50%;
 .btn {
     font-family: "Inter", serif;
     font-size: 1.2em;
-    width: 8em;
+    width: 9em;
     height: 2.5em;
     background-color: #4D5B9E;
     border-radius: 12px;
@@ -265,6 +265,7 @@ hr {
 
 .question-form input,select{
     margin-top: 10px;
+    margin-bottom: 20px;
     width: 50%;
     font-family: "Inter", serif;
     font-size: 1.2rem;

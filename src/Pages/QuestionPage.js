@@ -2,8 +2,9 @@ import React from 'react';
 import {
     useOutletContext,
     useLoaderData,
-    useRevalidator
-} from "react-router-dom"
+    useRevalidator,
+    useNavigate
+} from "react-router"
 import Question from "../Components/Question"
 import ConfettiEffect from "../Components/Confetti";
 import { fetchQuestions } from '../api';
@@ -23,7 +24,7 @@ export async function loader({request}) {
 
 export default function QuestionPage() {
     const {darkMode} = useOutletContext()
-
+    const navigate = useNavigate();
     const emptyAppState = {
         score: 0,
         checkAnswers: false,
@@ -93,6 +94,10 @@ export default function QuestionPage() {
                 <div className="bottom-container">
                     <p className="bottom-text">You scored {appState.score}/{questions.length} correct answers</p>
                     <button className="btn" onClick={playAgain}>Play Again</button>
+                    <button 
+                        className="btn"
+                        onClick={() => navigate("/")}
+                    >Change Question</button>
                     {appState.fullScore && <ConfettiEffect numOfQues={questions.length} />}
                 </div>
             }
@@ -104,6 +109,10 @@ export default function QuestionPage() {
                         style={check_answer_btn_style}
                         disabled={!allAnswersSelected}
                     >Check Answers</button>
+                    <button 
+                        className="btn"
+                        onClick={() => navigate("/")}
+                    >Change Question</button>
                 </div>
             }
         </div>
